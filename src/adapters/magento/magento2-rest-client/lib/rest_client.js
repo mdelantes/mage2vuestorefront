@@ -25,6 +25,7 @@ module.exports.RestClient = function (options) {
     };
 
     function apiCall(request_data) {
+        logger.debug('***********************************************************************');
         logger.debug('Calling API endpoint: ' + request_data.method + ' ' + request_data.url);
         return new Promise(function (resolve, reject) {
             request({
@@ -43,7 +44,7 @@ module.exports.RestClient = function (options) {
                     var errorMessage = 'HTTP ERROR ' + response.code;
                     if(body && body.hasOwnProperty('message') )
                         errorMessage = errorString(body.message, body.hasOwnProperty('parameters') ? body.parameters : {});
-                    
+
                     logger.error('API call failed: ' + errorMessage);
                     reject(errorMessage);
                 }
